@@ -9,14 +9,11 @@ type Theme = {
 };
 
 const themes: Theme[] = [
-  { bg: "#0a0a0f", text: "#f0e6d3", accent: "#c9a96e", sub: "#5a4a3a" },
-  { bg: "#f7f3ee", text: "#1a1a2e", accent: "#e07b39", sub: "#b8a898" },
-  { bg: "#0d1b2a", text: "#e8f4f8", accent: "#4fc3f7", sub: "#1e3a5f" },
-  { bg: "#1a0a00", text: "#fff8f0", accent: "#ff6b35", sub: "#4a2010" },
-  { bg: "#f0f4f0", text: "#1a2e1a", accent: "#4caf50", sub: "#a8c5a8" },
-  { bg: "#12001a", text: "#f5e6ff", accent: "#b94fff", sub: "#3a0050" },
-  { bg: "#fafafa", text: "#111", accent: "#222", sub: "#ccc" },
-  { bg: "#001a1a", text: "#e0ffff", accent: "#00e5cc", sub: "#003333" },
+  { bg: "#000000", text: "#ffffff", accent: "#a855f7", sub: "#262626" }, // black
+  { bg: "gray", text: "#000000", accent: "#fffff", sub: "#e5e5e5" }, // white
+  { bg: "#9333ea", text: "#ffffff", accent: "#ffffff", sub: "#7e22ce" }, // purple
+  { bg: "#ec4899", text: "#ffffff", accent: "#ffffff", sub: "#be185d" }, // pink
+  { bg: "#facc15", text: "#000000", accent: "#000000", sub: "#ca8a04" }, // yellow
 ];
 
 const INTERVAL_MS =  1000;
@@ -112,6 +109,9 @@ function QuoteCards(): JSX.Element {
               className="min-w-full w-full h-screen flex flex-col items-center justify-center px-[8vw] py-8 box-border relative"
               style={{ background: t.bg }}
             >
+            <div className="h-5 w-30 absolute top-20 start-20">
+              <img src={logo} alt="" className="h-full w-full"/>
+            </div>
               {/* Corner decoration */}
               <div
                 className="absolute top-8 left-8 w-12 h-12 opacity-60"
@@ -140,7 +140,7 @@ function QuoteCards(): JSX.Element {
               {/* Quote */}
               <p
                 className="text-center max-w-[780px] font-normal leading-relaxed text-[clamp(1.25rem,3.5vw,2.4rem)]"
-                style={{ color: t.text }}
+                style={{ color: t.text , fontFamily: "Plus Jakarta Sans"}}
               >
                 {quote}
               </p>
