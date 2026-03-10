@@ -1,6 +1,6 @@
 import QuoteCards from "./QuoteCards";
 
-function App(): JSX.Element {
+function App() {
   return (
     <div>
       <QuoteCards />

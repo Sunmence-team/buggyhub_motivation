@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from "react";
-import quotes from "./Data";
+import { useState, useEffect, useRef, type JSX } from "react";
+import quotes from "./data";
 
 type Theme = {
   bg: string;
@@ -170,7 +170,7 @@ function QuoteCards(): JSX.Element {
       </div>
 
       {/* Controls */}
-      <div className="fixed bottom-12 right-12 flex gap-3 z-[101]">
+      <div className="fixed bottom-12 right-12 flex gap-3 z-101">
         <button
           onClick={() => goTo((current - 1 + total) % total)}
           style={btnStyle(theme)}
@@ -178,12 +178,12 @@ function QuoteCards(): JSX.Element {
           ←
         </button>
 
-        {/* <button
+        <button
           onClick={() => setIsPaused((p) => !p)}
           style={btnStyle(theme)}
         >
           {isPaused ? "▶" : "⏸"}
-        </button> */}
+        </button>
 
         <button
           onClick={() => goTo((current + 1) % total)}
