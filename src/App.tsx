@@ -1,10 +1,11 @@
-function App() {
-  
+import QuoteCards from "./QuoteCards";
+
+function App(): JSX.Element {
   return (
-    <>
-      <h3>Hello Puffy</h3>
-    </>
-  )
+    <div>
+      <QuoteCards />
+    </div>
+  );
 }
 
-export default App
+export default App;
