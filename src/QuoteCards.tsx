@@ -17,6 +17,7 @@ const themes: Theme[] = [
   { bg: "#facc15", text: "#000000", accent: "#000000", sub: "#ca8a04" }, // yellow
 ];
 
+
 const INTERVAL_MS = 6000;
 
 function QuoteCards(): JSX.Element {
@@ -27,8 +28,9 @@ function QuoteCards(): JSX.Element {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const startTimeRef = useRef<number>(performance.now());
   const rafRef = useRef<number | null>(null);
-
+  
   const total = quotes.length;
+  const remainingSeconds = Math.ceil((1 - progress) * (INTERVAL_MS / 1000));
 
   function btnStyle(theme: Theme): React.CSSProperties {
     return {
@@ -144,6 +146,13 @@ function QuoteCards(): JSX.Element {
               <div className="h-5 w-30 absolute top-20 inset-s-20">
                 <img src={img1} alt="" className="h-full w-full" />
               </div>
+
+              <div
+                className="absolute bottom-6 left-6 text-sm font-medium opacity-80 z-[101]"
+                style={{ color: theme.accent }}
+              >
+                Next slide in {remainingSeconds}s
+              </div>
               {/* Corner decoration */}
               <div
                 className="absolute top-8 left-8 w-12 h-12 opacity-60"
@@ -235,6 +244,9 @@ function QuoteCards(): JSX.Element {
       >
         {current + 1} / {total}
       </div>
+
+      {/* Countdown */}
+  
     </div>
   );
 }
