@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, type JSX } from "react";
 import quotes from "./data";
+import img1 from "../src/assets/images/img1.png";
 
 type Theme = {
   bg: string;
@@ -10,13 +11,13 @@ type Theme = {
 
 const themes: Theme[] = [
   { bg: "#000000", text: "#ffffff", accent: "#a855f7", sub: "#262626" }, // black
-  { bg: "gray", text: "#000000", accent: "#fffff", sub: "#e5e5e5" }, // white
+  { bg: "gray", text: "#000000", accent: "#ffffff", sub: "#e5e5e5" }, // white
   { bg: "#9333ea", text: "#ffffff", accent: "#ffffff", sub: "#7e22ce" }, // purple
   { bg: "#ec4899", text: "#ffffff", accent: "#ffffff", sub: "#be185d" }, // pink
   { bg: "#facc15", text: "#000000", accent: "#000000", sub: "#ca8a04" }, // yellow
 ];
 
-const INTERVAL_MS =  1000;
+const INTERVAL_MS = 6000;
 
 function QuoteCards(): JSX.Element {
   const [current, setCurrent] = useState<number>(0);
@@ -24,27 +25,27 @@ function QuoteCards(): JSX.Element {
   const [isPaused, setIsPaused] = useState<boolean>(false);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const startTimeRef = useRef<number>(Date.now());
+  const startTimeRef = useRef<number>(performance.now());
   const rafRef = useRef<number | null>(null);
 
   const total = quotes.length;
 
   function btnStyle(theme: Theme): React.CSSProperties {
-  return {
-    background: "transparent",
-    border: `1px solid ${theme.accent}`,
-    color: theme.accent,
-    width: 36,
-    height: 36,
-    borderRadius: 4,
-    cursor: "pointer",
-    fontSize: "0.85rem",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    opacity: 0.8,
-  };
-};
+    return {
+      background: "transparent",
+      border: `1px solid ${theme.accent}`,
+      color: theme.accent,
+      width: 36,
+      height: 36,
+      borderRadius: 4,
+      cursor: "pointer",
+      fontSize: "0.85rem",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      opacity: 0.8,
+    };
+  }
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -56,19 +57,19 @@ function QuoteCards(): JSX.Element {
   }, [current]);
 
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || total === 0) return;
 
-    startTimeRef.current = Date.now() - progress * INTERVAL_MS;
+    startTimeRef.current = performance.now() - progress * INTERVAL_MS;
 
     const tick = () => {
-      const elapsed = Date.now() - startTimeRef.current;
+      const elapsed = performance.now() - startTimeRef.current;
       const ratio = Math.min(elapsed / INTERVAL_MS, 1);
 
       setProgress(ratio);
 
       if (ratio >= 1) {
         setCurrent((c) => (c + 1) % total);
-        startTimeRef.current = Date.now();
+        startTimeRef.current = performance.now();
         setProgress(0);
       }
 
@@ -84,21 +85,52 @@ function QuoteCards(): JSX.Element {
 
   const goTo = (idx: number): void => {
     setCurrent(idx);
-    startTimeRef.current = Date.now();
+    startTimeRef.current = performance.now();
     setProgress(0);
   };
 
   const theme: Theme = themes[current % themes.length];
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
+    if (total === 0) return;
+
+    if (event.key === "ArrowLeft") {
+      goTo((current - 1 + total) % total);
+    }
+
+    if (event.key === "ArrowRight") {
+      goTo((current + 1) % total);
+    }
+
+    if (event.key === " ") {
+      event.preventDefault();
+      setIsPaused((p) => !p);
+    }
+  };
+
+  if (total === 0) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <p className="text-sm text-neutral-500">No quotes available.</p>
+      </div>
+    );
+  }
+
   return (
     <div
       className="w-full h-screen relative overflow-hidden transition-colors duration-700 font-serif"
       style={{ background: theme.bg }}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="region"
+      aria-label="Quote carousel"
     >
       {/* Scroll strip */}
       <div
         ref={containerRef}
         className="flex w-full h-screen overflow-x-hidden scroll-smooth"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
       >
         {quotes.map((quote: string, i: number) => {
           const t = themes[i % themes.length];
@@ -109,9 +141,9 @@ function QuoteCards(): JSX.Element {
               className="min-w-full w-full h-screen flex flex-col items-center justify-center px-[8vw] py-8 box-border relative"
               style={{ background: t.bg }}
             >
-            <div className="h-5 w-30 absolute top-20 start-20">
-              <img src={logo} alt="" className="h-full w-full"/>
-            </div>
+              <div className="h-5 w-30 absolute top-20 inset-s-20">
+                <img src={img1} alt="" className="h-full w-full" />
+              </div>
               {/* Corner decoration */}
               <div
                 className="absolute top-8 left-8 w-12 h-12 opacity-60"
@@ -140,7 +172,7 @@ function QuoteCards(): JSX.Element {
               {/* Quote */}
               <p
                 className="text-center max-w-[780px] font-normal leading-relaxed text-[clamp(1.25rem,3.5vw,2.4rem)]"
-                style={{ color: t.text , fontFamily: "Plus Jakarta Sans"}}
+                style={{ color: t.text, fontFamily: "Plus Jakarta Sans" }}
               >
                 {quote}
               </p>
@@ -170,26 +202,29 @@ function QuoteCards(): JSX.Element {
       </div>
 
       {/* Controls */}
-      <div className="fixed bottom-12 right-12 flex gap-3 z-101">
+      <div className="fixed bottom-12 right-12 flex gap-3 z-[101]">
         <button
           onClick={() => goTo((current - 1 + total) % total)}
           style={btnStyle(theme)}
+          aria-label="Previous quote"
         >
-          ←
+          Prev
         </button>
 
         <button
           onClick={() => setIsPaused((p) => !p)}
           style={btnStyle(theme)}
+          aria-label={isPaused ? "Play carousel" : "Pause carousel"}
         >
-          {isPaused ? "▶" : "⏸"}
+          {isPaused ? "Play" : "Pause"}
         </button>
 
         <button
           onClick={() => goTo((current + 1) % total)}
           style={btnStyle(theme)}
+          aria-label="Next quote"
         >
-          →
+          Next
         </button>
       </div>
 
@@ -202,8 +237,6 @@ function QuoteCards(): JSX.Element {
       </div>
     </div>
   );
-};
-
-
+}
 
 export default QuoteCards;
