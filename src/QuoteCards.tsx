@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type JSX } from "react";
+import { useState, useEffect, useMemo, useRef, type JSX } from "react";
 import quotes from "./data";
 import img1 from "../src/assets/images/img1.png";
 
@@ -17,9 +17,18 @@ const themes: Theme[] = [
   { bg: "#facc15", text: "#000000", accent: "#000000", sub: "#ca8a04" }, // yellow
 ];
 
-const INTERVAL_MS = 6000;
+const INTERVAL_MS = 1000 * 60 * 3;
 
 function QuoteCards(): JSX.Element {
+  const shuffledQuotes = useMemo(() => {
+    const copy = [...quotes];
+    for (let i = copy.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  }, []);
+
   const [current, setCurrent] = useState<number>(0);
   const [progress, setProgress] = useState<number>(0);
   const [isPaused, setIsPaused] = useState<boolean>(false);
@@ -28,7 +37,7 @@ function QuoteCards(): JSX.Element {
   const startTimeRef = useRef<number>(performance.now());
   const rafRef = useRef<number | null>(null);
 
-  const total = quotes.length;
+  const total = shuffledQuotes.length;
 
   // function btnStyle(theme: Theme): React.CSSProperties {
   //   return {
@@ -132,7 +141,7 @@ function QuoteCards(): JSX.Element {
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
-        {quotes.map((quote: string, i: number) => {
+        {shuffledQuotes.map((quote: string, i: number) => {
           const t = themes[i % themes.length];
 
           return (
@@ -141,7 +150,7 @@ function QuoteCards(): JSX.Element {
               className="min-w-full w-full h-screen flex flex-col items-center justify-center px-[8vw] py-8 box-border relative"
               style={{ background: t.bg }}
             >
-              <div className="h-5 w-30 absolute top-20 inset-s-20">
+              <div className="h-5 w-30 absolute top-12 inset-s-12">
                 <img src={img1} alt="" className="h-full w-full" />
               </div>
               {/* Corner decoration */}
@@ -162,16 +171,16 @@ function QuoteCards(): JSX.Element {
               />
 
               {/* Card number */}
-              <p
+              {/* <p
                 className="text-[0.7rem] tracking-[0.25em] uppercase mb-10 opacity-70"
                 style={{ color: t.accent }}
               >
                 {String(i + 1).padStart(4, "0")} / {total}
-              </p>
+              </p> */}
 
               {/* Quote */}
               <p
-                className="text-center max-w-[780px] font-normal leading-relaxed text-[clamp(1.25rem,3.5vw,2.4rem)]"
+                className="text-center max-w-195 leading-relaxed text-[clamp(1.25rem,3.5vw,2.4rem)] font-medium"
                 style={{ color: t.text, fontFamily: "Plus Jakarta Sans" }}
               >
                 {quote}
@@ -179,7 +188,7 @@ function QuoteCards(): JSX.Element {
 
               {/* Accent line */}
               <div
-                className="w-[60px] h-[2px] mt-12 opacity-80"
+                className="w-15 h-0.5 mt-12 opacity-80"
                 style={{ background: t.accent }}
               />
             </div>
@@ -227,14 +236,6 @@ function QuoteCards(): JSX.Element {
           Next
         </button>
       </div> */}
-
-      {/* Counter */}
-      <div
-        className="fixed top-5 right-6 text-[0.72rem] tracking-[0.15em] opacity-75 z-[101]"
-        style={{ color: theme.accent }}
-      >
-        {current + 1} / {total}
-      </div>
     </div>
   );
 }
