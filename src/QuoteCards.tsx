@@ -30,22 +30,22 @@ function QuoteCards(): JSX.Element {
 
   const total = quotes.length;
 
-  function btnStyle(theme: Theme): React.CSSProperties {
-    return {
-      background: "transparent",
-      border: `1px solid ${theme.accent}`,
-      color: theme.accent,
-      width: 36,
-      height: 36,
-      borderRadius: 4,
-      cursor: "pointer",
-      fontSize: "0.85rem",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      opacity: 0.8,
-    };
-  }
+  // function btnStyle(theme: Theme): React.CSSProperties {
+  //   return {
+  //     background: "transparent",
+  //     border: `1px solid ${theme.accent}`,
+  //     color: theme.accent,
+  //     width: 36,
+  //     height: 36,
+  //     borderRadius: 4,
+  //     cursor: "pointer",
+  //     fontSize: "0.85rem",
+  //     display: "flex",
+  //     alignItems: "center",
+  //     justifyContent: "center",
+  //     opacity: 0.8,
+  //   };
+  // }
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -202,7 +202,7 @@ function QuoteCards(): JSX.Element {
       </div>
 
       {/* Controls */}
-      <div className="fixed bottom-12 right-12 flex gap-3 z-[101]">
+      {/* <div className="fixed bottom-12 right-12 flex gap-3 z-[101]">
         <button
           onClick={() => goTo((current - 1 + total) % total)}
           style={btnStyle(theme)}
@@ -226,7 +226,7 @@ function QuoteCards(): JSX.Element {
         >
           Next
         </button>
-      </div>
+      </div> */}
 
       {/* Counter */}
       <div
