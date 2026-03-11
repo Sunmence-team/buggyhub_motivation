@@ -17,8 +17,7 @@ const themes: Theme[] = [
   { bg: "#e5aa2d", text: "#2a2a2a", accent: "#2a2a2a", sub: "#ca8a04" }, // yellow
 ];
 
-
-const INTERVAL_MS = 6000;
+const INTERVAL_MS = 1000 * 60 * 3;
 
 function QuoteCards(): JSX.Element {
   const shuffledQuotes = useMemo(() => {
@@ -37,26 +36,26 @@ function QuoteCards(): JSX.Element {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const startTimeRef = useRef<number>(performance.now());
   const rafRef = useRef<number | null>(null);
-  
+
   const total = quotes.length;
   const remainingSeconds = Math.ceil((1 - progress) * (INTERVAL_MS / 1000));
 
-  function btnStyle(theme: Theme): React.CSSProperties {
-    return {
-      background: "transparent",
-      border: `1px solid ${theme.accent}`,
-      color: theme.accent,
-      width: 36,
-      height: 36,
-      borderRadius: 4,
-      cursor: "pointer",
-      fontSize: "0.85rem",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      opacity: 0.8,
-    };
-  }
+  // function btnStyle(theme: Theme): React.CSSProperties {
+  //   return {
+  //     background: "transparent",
+  //     border: `1px solid ${theme.accent}`,
+  //     color: theme.accent,
+  //     width: 36,
+  //     height: 36,
+  //     borderRadius: 4,
+  //     cursor: "pointer",
+  //     fontSize: "0.85rem",
+  //     display: "flex",
+  //     alignItems: "center",
+  //     justifyContent: "center",
+  //     opacity: 0.8,
+  //   };
+  // }
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -140,8 +139,6 @@ function QuoteCards(): JSX.Element {
       <div
         ref={containerRef}
         className="flex w-full h-screen overflow-x-hidden scroll-smooth"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
       >
         {shuffledQuotes.map((quote: string, i: number) => {
           const t = themes[i % themes.length];
@@ -157,7 +154,7 @@ function QuoteCards(): JSX.Element {
               </div>
 
               <div
-                className="absolute bottom-6 left-6 text-sm font-medium opacity-80 z-[101]"
+                className="absolute bottom-6 left-6 text-sm font-medium opacity-80 z-101"
                 style={{ color: theme.accent }}
               >
                 Next slide in {remainingSeconds}s
@@ -207,7 +204,7 @@ function QuoteCards(): JSX.Element {
 
       {/* Progress bar */}
       <div
-        className="fixed bottom-0 left-0 w-full h-[3px] z-[100]"
+        className="fixed bottom-0 left-0 w-full h-0.75 z-100"
         style={{ background: theme.sub }}
       >
         <div
