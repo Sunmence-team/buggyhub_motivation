@@ -12,7 +12,7 @@ type Theme = {
 const themes: Theme[] = [
   { bg: "#2a2a2a", text: "#ffffff", accent: "#796fab", sub: "#262626" }, // black
   { bg: "gray", text: "#2a2a2a", accent: "#ffffff", sub: "#e5e5e5" }, // white
-  { bg: "#9333ea", text: "#ffffff", accent: "#ffffff", sub: "#7e22ce" }, // purple
+  { bg: "#796fab", text: "#ffffff", accent: "#ffffff", sub: "#7e22ce" }, // purple
   { bg: "#ec4899", text: "#ffffff", accent: "#ffffff", sub: "#be185d" }, // pink
   { bg: "#e5aa2d", text: "#2a2a2a", accent: "#2a2a2a", sub: "#ca8a04" }, // yellow
 ];
