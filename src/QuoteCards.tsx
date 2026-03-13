@@ -146,7 +146,7 @@ function QuoteCards(): JSX.Element {
           return (
             <div
               key={i}
-              className="min-w-full w-full h-screen flex flex-col items-center justify-center px-[8vw] py-8 box-border relative slide"
+              className="shrink-0 min-w-full w-full h-screen flex flex-col items-center justify-center px-[8vw] py-8 box-border relative slide"
               style={{ background: t.bg }}
             >
               <div className="h-5 w-30 absolute top-12 left-12">
@@ -186,8 +186,12 @@ function QuoteCards(): JSX.Element {
 
               {/* Quote */}
               <p
-                className="text-center max-w-195 leading-relaxed text-[clamp(1.25rem,3.5vw,2.4rem)] font-medium"
-                style={{ color: t.text, fontFamily: "Plus Jakarta Sans" }}
+                className="text-center max-w-195 leading-relaxed font-medium"
+                style={{
+                  fontSize: "3.5vw",
+                  color: t.text,
+                  fontFamily: "Plus Jakarta Sans",
+                }}
               >
                 {quote}
               </p>

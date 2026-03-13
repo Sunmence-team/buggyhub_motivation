@@ -1,7 +1,7 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
-import legacy from '@vitejs/plugin-legacy'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+import legacy from "@vitejs/plugin-legacy";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -9,8 +9,9 @@ export default defineConfig({
     react(),
     tailwindcss(),
     legacy({
-      targets: ['defaults', 'chrome >= 49'],
-      additionalLegacyPolyfills: ['regenerator-runtime/runtime']
-    })
+      targets: ["defaults", "chrome >= 49", "not IE 11"],
+      additionalLegacyPolyfills: ["regenerator-runtime/runtime"],
+      // polyfilledBuiltins: true // Helps with some React 18+ features
+    }),
   ],
-})
+});
