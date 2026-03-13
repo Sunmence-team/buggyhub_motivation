@@ -220,7 +220,7 @@ function QuoteCards(): JSX.Element {
                   color: theme.accent,
                   fontSize: 14,
                   fontWeight: 500,
-                  opacity: 0.8,
+                  opacity: 1,
                 }}
               >
                 Next slide in {remainingSeconds}s
