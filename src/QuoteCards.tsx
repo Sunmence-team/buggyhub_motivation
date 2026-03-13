@@ -62,7 +62,7 @@ function QuoteCards(): JSX.Element {
 
     containerRef.current.scrollTo({
       left: current * containerRef.current.clientWidth,
-      behavior: "smooth",
+      behavior: "auto",
     });
   }, [current]);
 
@@ -128,8 +128,8 @@ function QuoteCards(): JSX.Element {
 
   return (
     <div
-      className="w-full h-screen relative overflow-hidden transition-colors duration-700 font-serif"
-      style={{ background: theme.bg }}
+      className="w-full relative overflow-hidden transition-colors duration-700 font-serif"
+      style={{ background: theme.bg, height: "100vh" }}
       onKeyDown={handleKeyDown}
       tabIndex={0}
       role="region"
@@ -146,10 +146,10 @@ function QuoteCards(): JSX.Element {
           return (
             <div
               key={i}
-              className="min-w-full w-full h-screen flex flex-col items-center justify-center px-[8vw] py-8 box-border relative"
+              className="min-w-full w-full h-screen flex flex-col items-center justify-center px-[8vw] py-8 box-border relative slide"
               style={{ background: t.bg }}
             >
-              <div className="h-5 w-30 absolute top-12 inset-s-12">
+              <div className="h-5 w-30 absolute top-12 left-12">
                 <img src={img1} alt="" className="h-full w-full" />
               </div>
 

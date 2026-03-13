@@ -9,7 +9,8 @@ export default defineConfig({
     react(),
     tailwindcss(),
     legacy({
-      targets: ['chrome >= 49']
-    }),
+      targets: ['defaults', 'chrome >= 49'],
+      additionalLegacyPolyfills: ['regenerator-runtime/runtime']
+    })
   ],
 })
