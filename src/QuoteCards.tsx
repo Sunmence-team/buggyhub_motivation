@@ -176,6 +176,7 @@ function QuoteCards(): JSX.Element {
       >
         {shuffledQuotes.map((quote: string, i: number) => {
           const t = themes[i % themes.length];
+          const isActive = i === current;
 
           return (
             <div
@@ -270,6 +271,7 @@ function QuoteCards(): JSX.Element {
                   textAlign: "center",
                   fontWeight: 500,
                   lineHeight: 1.6,
+                  animation: isActive ? "fadeUp 600ms ease" : "none",
                 }}
               >
                 {quote}
@@ -283,6 +285,7 @@ function QuoteCards(): JSX.Element {
                   marginTop: 48,
                   opacity: 0.8,
                   background: t.accent,
+                  animation: isActive ? "fadeUp 700ms ease" : "none",
                 }}
               />
             </div>
@@ -311,6 +314,13 @@ function QuoteCards(): JSX.Element {
           }}
         />
       </div>
+
+      <style>
+        {`@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}`}
+      </style>
 
       {/* Controls */}
       {/* <div className="fixed bottom-12 right-12 flex gap-3 z-[101]">
