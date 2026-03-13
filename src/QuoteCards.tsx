@@ -130,9 +130,7 @@ function QuoteCards(): JSX.Element {
           fontFamily: "serif",
         }}
       >
-        <p style={{ fontSize: 14, color: "#737373" }}>
-          No quotes available.
-        </p>
+        <p style={{ fontSize: 14, color: "#737373" }}>No quotes available.</p>
       </div>
     );
   }
@@ -172,7 +170,7 @@ function QuoteCards(): JSX.Element {
                 flexShrink: 0,
                 minWidth: "100%",
                 width: "100%",
-                height: "100vh",
+                height: "100dvh",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -188,14 +186,15 @@ function QuoteCards(): JSX.Element {
                   position: "absolute",
                   top: 48,
                   left: 48,
-                  width: 80,
-                  height: 20,
-                  borderWidth: 2,
-                  borderColor: "green",
-                  borderStyle: "solid",
+                  width: 200,
+                  height: 30,
                 }}
               >
-                <img src={img1} alt="" style={{ width: "100%", height: "100%" }} />
+                <img
+                  src={img1}
+                  alt=""
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
               </div>
 
               <div
