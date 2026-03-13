@@ -17,7 +17,7 @@ const themes: Theme[] = [
   { bg: "#e5aa2d", text: "#2a2a2a", accent: "#2a2a2a", sub: "#ca8a04" }, // yellow
 ];
 
-const INTERVAL_MS = 1000 * 60 * 3;
+const INTERVAL_MS = 1000 * 60 * 1;
 
 function QuoteCards(): JSX.Element {
   const shuffledQuotes = useMemo(() => {
