@@ -37,7 +37,7 @@ function QuoteCards(): JSX.Element {
   const startTimeRef = useRef<number>(performance.now());
   const rafRef = useRef<number | null>(null);
 
-  const total = quotes.length;
+  const total = shuffledQuotes.length;
   const remainingSeconds = Math.ceil((1 - progress) * (INTERVAL_MS / 1000));
 
   // function btnStyle(theme: Theme): React.CSSProperties {
@@ -149,12 +149,12 @@ function QuoteCards(): JSX.Element {
               className="shrink-0 min-w-full w-full h-screen flex flex-col items-center justify-center px-[8vw] py-8 box-border relative slide"
               style={{ background: t.bg }}
             >
-              <div className="h-5 w-30 absolute top-12 left-12">
+              <div className="absolute top-12 left-12 h-[20px] w-[80px]">
                 <img src={img1} alt="" className="h-full w-full" />
               </div>
 
               <div
-                className="absolute bottom-6 left-6 text-sm font-medium opacity-80 z-101"
+                className="absolute bottom-6 left-6 text-sm font-medium opacity-80 z-[101]"
                 style={{ color: theme.accent }}
               >
                 Next slide in {remainingSeconds}s
@@ -186,7 +186,7 @@ function QuoteCards(): JSX.Element {
 
               {/* Quote */}
               <p
-                className="text-center max-w-195 leading-relaxed font-medium"
+                className="text-center max-w-[780px] leading-relaxed font-medium"
                 style={{
                   fontSize: "3.5vw",
                   color: t.text,
@@ -198,7 +198,7 @@ function QuoteCards(): JSX.Element {
 
               {/* Accent line */}
               <div
-                className="w-15 h-0.5 mt-12 opacity-80"
+                className="w-[60px] h-[2px] mt-12 opacity-80"
                 style={{ background: t.accent }}
               />
             </div>
@@ -208,7 +208,7 @@ function QuoteCards(): JSX.Element {
 
       {/* Progress bar */}
       <div
-        className="fixed bottom-0 left-0 w-full h-0.75 z-100"
+        className="fixed bottom-0 left-0 w-full h-[3px] z-[100]"
         style={{ background: theme.sub }}
       >
         <div
