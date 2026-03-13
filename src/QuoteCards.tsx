@@ -149,13 +149,28 @@ function QuoteCards(): JSX.Element {
               className="shrink-0 min-w-full w-full h-screen flex flex-col items-center justify-center px-[8vw] py-8 box-border relative slide"
               style={{ background: t.bg }}
             >
-              <div className="absolute top-12 left-12 h-[20px] w-[80px]">
+              <div
+                className="absolute"
+                style={{
+                  position: "absolute",
+                  top: 48,
+                  left: 48,
+                  width: 80,
+                  height: 20,
+                }}
+              >
                 <img src={img1} alt="" className="h-full w-full" />
               </div>
 
               <div
-                className="absolute bottom-6 left-6 text-sm font-medium opacity-80 z-[101]"
-                style={{ color: theme.accent }}
+                className="text-sm font-medium opacity-80"
+                style={{
+                  position: "absolute",
+                  bottom: 24,
+                  left: 24,
+                  zIndex: 101,
+                  color: theme.accent,
+                }}
               >
                 Next slide in {remainingSeconds}s
               </div>
@@ -186,8 +201,9 @@ function QuoteCards(): JSX.Element {
 
               {/* Quote */}
               <p
-                className="text-center max-w-[780px] leading-relaxed font-medium"
+                className="text-center leading-relaxed font-medium"
                 style={{
+                  maxWidth: 780,
                   fontSize: "3.5vw",
                   color: t.text,
                   fontFamily: "Plus Jakarta Sans",
@@ -198,8 +214,8 @@ function QuoteCards(): JSX.Element {
 
               {/* Accent line */}
               <div
-                className="w-[60px] h-[2px] mt-12 opacity-80"
-                style={{ background: t.accent }}
+                className="mt-12 opacity-80"
+                style={{ width: 60, height: 2, background: t.accent }}
               />
             </div>
           );
@@ -208,8 +224,8 @@ function QuoteCards(): JSX.Element {
 
       {/* Progress bar */}
       <div
-        className="fixed bottom-0 left-0 w-full h-[3px] z-[100]"
-        style={{ background: theme.sub }}
+        className="fixed bottom-0 left-0 w-full"
+        style={{ height: 3, zIndex: 100, background: theme.sub }}
       >
         <div
           className="h-full transition-all duration-100 linear"
