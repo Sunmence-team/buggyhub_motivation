@@ -67,6 +67,20 @@ function QuoteCards(): JSX.Element {
   }, [current]);
 
   useEffect(() => {
+    const setViewportHeight = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--app-vh", `${vh}px`);
+    };
+
+    setViewportHeight();
+    window.addEventListener("resize", setViewportHeight);
+
+    return () => {
+      window.removeEventListener("resize", setViewportHeight);
+    };
+  }, []);
+
+  useEffect(() => {
     if (isPaused || total === 0) return;
 
     startTimeRef.current = performance.now() - progress * INTERVAL_MS;
@@ -123,7 +137,7 @@ function QuoteCards(): JSX.Element {
       <div
         style={{
           width: "100%",
-          height: "100vh",
+          height: "calc(var(--app-vh, 1vh) * 100)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -139,7 +153,7 @@ function QuoteCards(): JSX.Element {
     <div
       style={{
         width: "100%",
-        height: "100vh",
+        height: "calc(var(--app-vh, 1vh) * 100)",
         position: "relative",
         overflow: "hidden",
         background: theme.bg,
@@ -156,7 +170,7 @@ function QuoteCards(): JSX.Element {
         style={{
           display: "flex",
           width: "100%",
-          height: "100vh",
+          height: "calc(var(--app-vh, 1vh) * 100)",
           overflowX: "hidden",
         }}
       >
@@ -170,7 +184,7 @@ function QuoteCards(): JSX.Element {
                 flexShrink: 0,
                 minWidth: "100%",
                 width: "100%",
-                height: "100dvh",
+                height: "calc(var(--app-vh, 1vh) * 100)",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
