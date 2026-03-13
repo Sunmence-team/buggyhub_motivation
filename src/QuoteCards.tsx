@@ -120,16 +120,33 @@ function QuoteCards(): JSX.Element {
 
   if (total === 0) {
     return (
-      <div className="w-full h-screen flex items-center justify-center">
-        <p className="text-sm text-neutral-500">No quotes available.</p>
+      <div
+        style={{
+          width: "100%",
+          height: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontFamily: "serif",
+        }}
+      >
+        <p style={{ fontSize: 14, color: "#737373" }}>
+          No quotes available.
+        </p>
       </div>
     );
   }
 
   return (
     <div
-      className="w-full relative overflow-hidden transition-colors duration-700 font-serif"
-      style={{ background: theme.bg, height: "100vh" }}
+      style={{
+        width: "100%",
+        height: "100vh",
+        position: "relative",
+        overflow: "hidden",
+        background: theme.bg,
+        fontFamily: "serif",
+      }}
       onKeyDown={handleKeyDown}
       tabIndex={0}
       role="region"
@@ -138,7 +155,12 @@ function QuoteCards(): JSX.Element {
       {/* Scroll strip */}
       <div
         ref={containerRef}
-        className="flex w-full h-screen overflow-x-hidden scroll-smooth"
+        style={{
+          display: "flex",
+          width: "100%",
+          height: "100vh",
+          overflowX: "hidden",
+        }}
       >
         {shuffledQuotes.map((quote: string, i: number) => {
           const t = themes[i % themes.length];
@@ -146,46 +168,72 @@ function QuoteCards(): JSX.Element {
           return (
             <div
               key={i}
-              className="shrink-0 min-w-full w-full h-screen flex flex-col items-center justify-center px-[8vw] py-8 box-border relative slide"
-              style={{ background: t.bg }}
+              style={{
+                flexShrink: 0,
+                minWidth: "100%",
+                width: "100%",
+                height: "100vh",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "32px 8vw",
+                boxSizing: "border-box",
+                position: "relative",
+                background: t.bg,
+              }}
             >
               <div
-                className="absolute"
                 style={{
                   position: "absolute",
                   top: 48,
                   left: 48,
                   width: 80,
                   height: 20,
+                  borderWidth: 2,
+                  borderColor: "green",
+                  borderStyle: "solid",
                 }}
               >
-                <img src={img1} alt="" className="h-full w-full" />
+                <img src={img1} alt="" style={{ width: "100%", height: "100%" }} />
               </div>
 
               <div
-                className="text-sm font-medium opacity-80"
                 style={{
                   position: "absolute",
                   bottom: 24,
                   left: 24,
                   zIndex: 101,
                   color: theme.accent,
+                  fontSize: 14,
+                  fontWeight: 500,
+                  opacity: 0.8,
                 }}
               >
                 Next slide in {remainingSeconds}s
               </div>
               {/* Corner decoration */}
               <div
-                className="absolute top-8 left-8 w-12 h-12 opacity-60"
                 style={{
+                  position: "absolute",
+                  top: 32,
+                  left: 32,
+                  width: 48,
+                  height: 48,
+                  opacity: 0.6,
                   borderTop: `2px solid ${t.accent}`,
                   borderLeft: `2px solid ${t.accent}`,
                 }}
               />
 
               <div
-                className="absolute bottom-8 right-8 w-12 h-12 opacity-60"
                 style={{
+                  position: "absolute",
+                  bottom: 32,
+                  right: 32,
+                  width: 48,
+                  height: 48,
+                  opacity: 0.6,
                   borderBottom: `2px solid ${t.accent}`,
                   borderRight: `2px solid ${t.accent}`,
                 }}
@@ -201,12 +249,14 @@ function QuoteCards(): JSX.Element {
 
               {/* Quote */}
               <p
-                className="text-center leading-relaxed font-medium"
                 style={{
                   maxWidth: 780,
                   fontSize: "3.5vw",
                   color: t.text,
                   fontFamily: "Plus Jakarta Sans",
+                  textAlign: "center",
+                  fontWeight: 500,
+                  lineHeight: 1.6,
                 }}
               >
                 {quote}
@@ -214,8 +264,13 @@ function QuoteCards(): JSX.Element {
 
               {/* Accent line */}
               <div
-                className="mt-12 opacity-80"
-                style={{ width: 60, height: 2, background: t.accent }}
+                style={{
+                  width: 60,
+                  height: 2,
+                  marginTop: 48,
+                  opacity: 0.8,
+                  background: t.accent,
+                }}
               />
             </div>
           );
@@ -224,12 +279,20 @@ function QuoteCards(): JSX.Element {
 
       {/* Progress bar */}
       <div
-        className="fixed bottom-0 left-0 w-full"
-        style={{ height: 3, zIndex: 100, background: theme.sub }}
+        style={{
+          position: "fixed",
+          bottom: 0,
+          left: 0,
+          width: "100%",
+          height: 3,
+          zIndex: 100,
+          background: theme.sub,
+        }}
+        role="presentation"
       >
         <div
-          className="h-full transition-all duration-100 linear"
           style={{
+            height: "100%",
             width: `${progress * 100}%`,
             background: theme.accent,
           }}
